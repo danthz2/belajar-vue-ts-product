@@ -1,8 +1,42 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import { useAuthStore } from '../store/auth';
+import { useMutation, useQuery } from '@tanstack/vue-query';
+import customApi from '../utils/api';
+
 
 const authStore = useAuthStore()
+const router = useRouter()
+
+
+const fetchDataCategory = async () => {
+    const { data } = await customApi.get('/products/categories')
+
+    return data;
+}
+
+const { data, isLoading, error } = useQuery({
+    queryKey: ['categories'],
+    queryFn: fetchDataCategory
+});
+
+const LogoutMutation = useMutation({
+    mutationFn: async () => {
+        authStore.removeAuth()
+    },
+    onSuccess: () => {
+        router.replace({ name: 'login' })
+    },
+    onError: (err) => {
+        console.log(err)
+    }
+})
+
+const handleLogout = async () => {
+    LogoutMutation.mutate();
+}
+
+
 </script>
 <template>
     <header>
@@ -18,28 +52,38 @@ const authStore = useAuthStore()
                     </div>
                     <ul tabindex="0"
                         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                        <li><a>Item 1</a></li>
                         <li>
-                            <a>Parent</a>
+                            <RouterLink :to="{ name: 'products' }">Product</RouterLink>
+                        </li>
+                        <li>
+                            <a>Category</a>
                             <ul class="p-2">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
+                                <li v-if="isLoading">Loading...</li>
+                                <li v-else-if="error">Error</li>
+                                <li v-else v-for="category in data" :key="category.slug">
+                                    <RouterLink :to="{}">{{ category.name }}</RouterLink>
+                                </li>
                             </ul>
                         </li>
                         <li><a>Item 3</a></li>
                     </ul>
                 </div>
-                <RouterLink :to="{ name: 'home' }" class="btn btn-ghost text-xl">Product</RouterLink>
+                <RouterLink :to="{ name: 'home' }" class="btn btn-ghost text-xl">🛒- Mall</RouterLink>
             </div>
             <div class="navbar-center hidden lg:flex">
                 <ul class="menu menu-horizontal px-1">
-                    <li><a>Item 1</a></li>
+                    <li>
+                        <RouterLink :to="{ name: 'products' }">Product</RouterLink>
+                    </li>
                     <li>
                         <details>
-                            <summary>Parent</summary>
-                            <ul class="p-2">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
+                            <summary>Category</summary>
+                            <ul class="p-2 ">
+                                <li v-if="isLoading">Loading...</li>
+                                <li v-else-if="error">Error</li>
+                                <li v-else v-for="category in data" :key="category.slug">
+                                    <RouterLink :to="{}">{{ category.name }}</RouterLink>
+                                </li>
                             </ul>
                         </details>
                     </li>
@@ -47,7 +91,21 @@ const authStore = useAuthStore()
                 </ul>
             </div>
             <div class="navbar-end">
-                <a class="btn">Cart </a>
+                <div v-if="authStore.token">
+                    <div class="dropdown dropdown-end">
+                        <div tabindex="0" role="button" class="btn btn-info rounded-field">
+                            {{ authStore.user?.firstName }}</div>
+                        <ul tabindex="0"
+                            class="menu dropdown-content bg-base-200 rounded-box z-1 mt-4 w-52 p-2 shadow-sm">
+                            <li><a>Dashboard</a></li>
+                            <li><a>Profile</a></li>
+                            <li><span class="text-error" @click="handleLogout">Logout</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div v-else>
+                    <RouterLink :to="{ name: 'login' }" class="btn btn-primary">Login</RouterLink>
+                </div>
             </div>
         </div>
     </header>

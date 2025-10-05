@@ -30,6 +30,10 @@ export const useAuthStore = defineStore('auth' , {
         setAuth(token:string , user:User){
             this.token = token
             this.user = user
+        },
+        removeAuth() {
+            this.token = null,
+            this.user = null
         }
     },
     persist: true
