@@ -78,7 +78,7 @@ const handleLogout = async () => {
                     <li>
                         <details>
                             <summary>Category</summary>
-                            <ul class="p-2 ">
+                            <ul class="p-2 max-h-[30vh] overflow-y-scroll">
                                 <li v-if="isLoading">Loading...</li>
                                 <li v-else-if="error">Error</li>
                                 <li v-else v-for="category in data" :key="category.slug">
