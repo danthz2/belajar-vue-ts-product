@@ -8,6 +8,8 @@ import PublicLayout from "../components/layouts/PublicLayout.vue";
 import DashboardLayout from "../components/layouts/DashboardLayout.vue";
 import DashboardView from "../components/DashboardView.vue";
 import ProfileView from "../components/ProfileView.vue";
+import CreateProfile from "../components/CreateProfile.vue";
+import UpdateProfileView from "../components/UpdateProfileView.vue";
 
 
 const router = createRouter({
@@ -58,6 +60,16 @@ const router = createRouter({
                     path:'profile',
                     name:'profile',
                     component:ProfileView
+                },
+                {
+                    path:'profile/create',
+                    name:'create-profile',
+                    component:CreateProfile
+                },
+                {
+                    path:'profile/update',
+                    name:'update-profile',
+                    component:UpdateProfileView
                 }
             ]
         }

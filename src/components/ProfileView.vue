@@ -4,6 +4,7 @@ import customApi from '../utils/api';
 import ErrorComponent from './ErrorComponent.vue';
 import Loading from './Loading.vue';
 import { useAuthStore } from '../store/auth';
+import { RouterLink } from 'vue-router';
 
 const authStore = useAuthStore();
 
@@ -42,7 +43,8 @@ const { data, isLoading, error } = useQuery({
                     <h2 class="card-title">{{ data.firstName }} {{ data.lastName }}, {{ data.age }} Tahun</h2>
                     <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
                     <div class="card-actions">
-                        <button class="btn btn-info my-2">Update Profile</button>
+                        <RouterLink :to="{ name: 'update-profile' }" class="btn btn-info my-2">Update Profile
+                        </RouterLink>
                     </div>
                 </div>
             </div>
@@ -51,7 +53,7 @@ const { data, isLoading, error } = useQuery({
             <h2 class="text-lg font-bold">
                 Belum ada profile
             </h2>
-            <button class="btn btn-info my-2">Buat profile</button>
+            <RouterLink :to="{ name: 'create-profile' }" class="btn btn-info my-2">Buat profile</RouterLink>
         </div>
     </div>
 </template>
