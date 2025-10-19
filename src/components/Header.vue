@@ -65,7 +65,6 @@ const handleLogout = async () => {
                                 </li>
                             </ul>
                         </li>
-                        <li><a>Item 3</a></li>
                     </ul>
                 </div>
                 <RouterLink :to="{ name: 'home' }" class="btn btn-ghost text-xl">🛒- Mall</RouterLink>
@@ -87,7 +86,6 @@ const handleLogout = async () => {
                             </ul>
                         </details>
                     </li>
-                    <li><a>Item 3</a></li>
                 </ul>
             </div>
             <div class="navbar-end">
@@ -100,7 +98,9 @@ const handleLogout = async () => {
                             <li>
                                 <RouterLink :to="{ name: 'dashboard' }">Dashboard</RouterLink>
                             </li>
-                            <li><a>Profile</a></li>
+                            <li>
+                                <RouterLink :to="{ name: 'profile' }">Profile</RouterLink>
+                            </li>
                             <li><span class="text-error" @click="handleLogout">Logout</span></li>
                         </ul>
                     </div>

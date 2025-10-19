@@ -7,6 +7,7 @@ import RegisterView from "../components/RegisterView.vue";
 import PublicLayout from "../components/layouts/PublicLayout.vue";
 import DashboardLayout from "../components/layouts/DashboardLayout.vue";
 import DashboardView from "../components/DashboardView.vue";
+import ProfileView from "../components/ProfileView.vue";
 
 
 const router = createRouter({
@@ -52,6 +53,11 @@ const router = createRouter({
                     path:'',
                     name:'dashboard',
                     component:DashboardView
+                },
+                {
+                    path:'profile',
+                    name:'profile',
+                    component:ProfileView
                 }
             ]
         }

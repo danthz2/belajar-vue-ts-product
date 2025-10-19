@@ -48,9 +48,16 @@ const closeDrawer = () => (isOpen.value = false)
                     <h2 class="menu-title">Dashboard</h2>
                     <ul>
                         <li>
-                            <RouterLink :to="{ name: 'dashboard' }">Item 1</RouterLink>
+                            <RouterLink :to="{ name: 'dashboard' }">🎛 Dashboard</RouterLink>
                         </li>
-
+                    </ul>
+                </li>
+                <li>
+                    <h2 class="menu-title">User</h2>
+                    <ul>
+                        <li>
+                            <RouterLink :to="{ name: 'profile' }">👤 Profile</RouterLink>
+                        </li>
                     </ul>
                 </li>
             </ul>
