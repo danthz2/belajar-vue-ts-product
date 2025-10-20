@@ -18,6 +18,7 @@ interface User {
     height:     number;
     weight:     number;
     eyeColor:   string;
+    role:       string;
 }
 
 

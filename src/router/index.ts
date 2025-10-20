@@ -10,6 +10,7 @@ import DashboardView from "../components/DashboardView.vue";
 import ProfileView from "../components/ProfileView.vue";
 import CreateProfile from "../components/CreateProfile.vue";
 import UpdateProfileView from "../components/UpdateProfileView.vue";
+import { useAuthStore } from "../store/auth";
 
 
 const router = createRouter({
@@ -37,18 +38,27 @@ const router = createRouter({
                 {
                     path:'login',
                     name:'login',
-                    component:LoginView
+                    component:LoginView,
+                    meta: {
+                        isPublic: true
+                    }
                 
                 },
                 {
                     path:'register',
                     name:'register',
-                    component:RegisterView
+                    component:RegisterView,
+                    meta: {
+                        isPublic: true
+                    }
                 }
             ]
         },
         {
             path:'/dashboard',
+            meta:{
+                isAuth: true,
+            },
             component:DashboardLayout,
             children: [
                 {
@@ -75,6 +85,33 @@ const router = createRouter({
         }
         
     ]
+})
+
+router.beforeEach(async(to, _) => {
+    const authStore = useAuthStore()
+
+    if(to.meta.isAuth && !authStore.token) {
+        alert('Anda harus login untuk mengakses halaman ini')
+        return {
+            path: '/login'
+        }
+    }
+
+    if(to.meta.isPublic && authStore.token) {
+        alert('Anda sudah login, jadi tidak perlu login lagi')
+        return {
+            path: '/dashboard'
+        }
+    }
+    
+    if(to.meta.isPublic && authStore.user?.role != 'admin') {
+        alert('halaman ini hanya bisa diakses oleh admin')
+        return {
+            path: '/dashboard'
+        }
+    }
+
+    
 })
 
 
