@@ -60,6 +60,15 @@ const closeDrawer = () => (isOpen.value = false)
                         </li>
                     </ul>
                 </li>
+
+                <li v-if="authStore.user?.role === 'admin'">
+                    <h2 class="menu-title">Master</h2>
+                    <ul>
+                        <li>
+                            <RouterLink :to="{ name: 'category-dashboard' }">💠 Category</RouterLink>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- Mobile -->

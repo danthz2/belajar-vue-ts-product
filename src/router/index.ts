@@ -11,6 +11,7 @@ import ProfileView from "../components/ProfileView.vue";
 import CreateProfile from "../components/CreateProfile.vue";
 import UpdateProfileView from "../components/UpdateProfileView.vue";
 import { useAuthStore } from "../store/auth";
+import CategoryDashboardView from "../components/CategoryDashboardView.vue";
 
 
 const router = createRouter({
@@ -80,6 +81,14 @@ const router = createRouter({
                     path:'profile/update',
                     name:'update-profile',
                     component:UpdateProfileView
+                },
+                {
+                    path:'category',
+                    name:'category-dashboard',
+                    component:CategoryDashboardView,
+                    meta: {
+                        isAdmin: true
+                    }
                 }
             ]
         }
@@ -104,7 +113,7 @@ router.beforeEach(async(to, _) => {
         }
     }
     
-    if(to.meta.isPublic && authStore.user?.role != 'admin') {
+    if(to.meta.isAdmin && authStore.user?.role !== 'admin') {
         alert('halaman ini hanya bisa diakses oleh admin')
         return {
             path: '/dashboard'
