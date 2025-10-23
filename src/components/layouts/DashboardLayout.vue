@@ -67,6 +67,10 @@ const closeDrawer = () => (isOpen.value = false)
                         <li>
                             <RouterLink :to="{ name: 'category-dashboard' }">💠 Category</RouterLink>
                         </li>
+
+                        <li>
+                            <RouterLink :to="{ name: 'post-dashboard' }">📰 Post</RouterLink>
+                        </li>
                     </ul>
                 </li>
             </ul>

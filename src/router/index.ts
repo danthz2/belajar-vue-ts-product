@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import DetailPostView from "../views/DetailProductView.vue";
-import PostView from "../views/ProductView.vue";
+import DetailProductView from "../views/DetailProductView.vue";
+import ProductView from "../views/ProductView.vue";
 import LoginView from "../views/LoginView.vue";
 import RegisterView from "../components/RegisterView.vue";
 import PublicLayout from "../components/layouts/PublicLayout.vue";
@@ -12,6 +12,7 @@ import CreateProfile from "../components/CreateProfile.vue";
 import UpdateProfileView from "../components/UpdateProfileView.vue";
 import { useAuthStore } from "../store/auth";
 import CategoryDashboardView from "../components/CategoryDashboardView.vue";
+import PostDashboardView from "../components/PostDashboardView.vue";
 
 
 const router = createRouter({
@@ -29,12 +30,12 @@ const router = createRouter({
                 {
                     path:'products',
                     name:'products',
-                    component:PostView
+                    component:ProductView
                 },
                 {
                     path:'products/:id',
                     name:'detail-product',
-                    component:DetailPostView
+                    component:DetailProductView
                 },
                 {
                     path:'login',
@@ -86,6 +87,14 @@ const router = createRouter({
                     path:'category',
                     name:'category-dashboard',
                     component:CategoryDashboardView,
+                    meta: {
+                        isAdmin: true
+                    }
+                },
+                {
+                    path:'post',
+                    name:'post-dashboard',
+                    component:PostDashboardView,
                     meta: {
                         isAdmin: true
                     }

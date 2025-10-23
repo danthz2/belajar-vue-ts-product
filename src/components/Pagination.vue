@@ -8,10 +8,10 @@ const props = defineProps<{
     total: number,
     skip: number,
     limit: number,
-    title: string,
-    category: string,
-    sortBy: string,
-    order: string
+    title?: string,
+    category?: string,
+    sortBy?: string,
+    order?: string
 }>()
 
 
@@ -35,7 +35,7 @@ const goToPage = (newSkip: number) => {
 <template>
     <div class="join">
         <button class="join-item btn" :disabled="skip <= 1" @click=" goToPage(skip - limit)">«</button>
-        <button class="join-item btn">Page {{ (skip / limit) + 1 }}</button>
+        <button class="join-item btn">Page {{ (Math.floor(skip / limit)) + 1 }}</button>
         <button class="join-item btn" :disabled="skip + limit >= total" @click=" goToPage(skip + limit)">»</button>
     </div>
 </template>
