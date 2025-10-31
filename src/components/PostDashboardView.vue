@@ -9,6 +9,7 @@ import { useRoute } from 'vue-router';
 import Pagination from './Pagination.vue';
 
 
+
 const authStore = useAuthStore()
 
 const route = useRoute();
@@ -31,11 +32,23 @@ const fetchDataPost = async () => {
     return data;
 }
 
-const { data, isLoading, error } = useQuery({
+const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['post', skip, limit],
     queryFn: fetchDataPost
 })
 
+const handleDelete = async (id: number) => {
+    if (confirm("Are you sure to delet this post ?")) {
+        await customApi.delete(`/posts/${id}`, {
+            headers: {
+                Authorization: `Bearer ${authStore.token}`
+            }
+        })
+        refetch()
+    }
+
+    alert('Delete successfully')
+}
 
 </script>
 <template>
@@ -91,7 +104,7 @@ const { data, isLoading, error } = useQuery({
 
                             </td>
                             <th>
-                                <button class="btn btn-ghost btn-xs">details</button>
+                                <button class="btn btn-error btn-xs" @click="handleDelete(item.id)">Delete</button>
                             </th>
                         </tr>
                     </tbody>
