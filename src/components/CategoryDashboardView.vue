@@ -126,7 +126,8 @@ const { data, isLoading, error, refetch } = useQuery({
 
                 <div class="flex gap-x-3">
                     <button class="btn btn-neutral mt-4" type="submit">{{ isUpdate ? 'Update' : "Create" }}</button>
-                    <button class="btn btn-error mt-4" type="button" @click="closeFormCategory">Batal</button>
+                    <button class="btn btn-error mt-4 text-white " type="button"
+                        @click="closeFormCategory">Batal</button>
                 </div>
             </form>
         </fieldset>

@@ -39,7 +39,10 @@ const { data, isLoading, error } = useQuery({
 
 </script>
 <template>
-    <h1 class="text-info text-2xl font-bold mb-5">Halaman post</h1>
+    <h1 class="text-info text-2xl font-bold mb-3">Halaman Post</h1>
+    <div class="flex justify-end">
+        <RouterLink :to="{ name: 'post-create' }" class="btn btn-primary my-3 ">Tambah</RouterLink>
+    </div>
     <div v-if="isLoading">
         <Loading /> Loading...
     </div>
