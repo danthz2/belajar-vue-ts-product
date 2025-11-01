@@ -58,6 +58,9 @@ const closeDrawer = () => (isOpen.value = false)
                         <li>
                             <RouterLink :to="{ name: 'profile' }">👤 Profile</RouterLink>
                         </li>
+                        <li v-if="authStore.user?.role === 'admin'">
+                            <RouterLink :to="{ name: 'user-dashboard' }">👥 Users</RouterLink>
+                        </li>
                     </ul>
                 </li>
 

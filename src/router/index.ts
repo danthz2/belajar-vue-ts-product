@@ -14,6 +14,7 @@ import { useAuthStore } from "../store/auth";
 import CategoryDashboardView from "../components/CategoryDashboardView.vue";
 import PostDashboardView from "../components/PostDashboardView.vue";
 import CreatePostView from "../components/CreatePostView.vue";
+import UserView from "../components/UserView.vue";
 
 
 const router = createRouter({
@@ -107,7 +108,15 @@ const router = createRouter({
                     meta: {
                         isAdmin: true
                     }
-                }
+                },
+                {
+                    path:'user',
+                    name:'user-dashboard',
+                    component:UserView,
+                    meta: {
+                        isAdmin: true
+                    }
+                },
             ]
         }
         
