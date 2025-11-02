@@ -4,6 +4,7 @@ import customApi from '../utils/api';
 import { useQuery } from '@tanstack/vue-query';
 import Loading from '../components/Loading.vue';
 import ErrorComponent from '../components/ErrorComponent.vue';
+import CommentForm from '../components/CommentForm.vue';
 
 
 const route = useRoute()
@@ -15,7 +16,7 @@ const fetchData = async () => {
 }
 
 const { data, isLoading, error } = useQuery({
-    queryKey: ["data"],
+    queryKey: ["productDataDetail"],
     queryFn: fetchData,
 })
 
@@ -53,7 +54,7 @@ const { data, isLoading, error } = useQuery({
                     {{ tag }}
                 </div>
             </section>
-
+            <CommentForm :productId="route.params.id" :isUpdate="false" />
             <section class="mt-5">
                 <h1 class="text-2xl font-bold text-info my-2">Reviews</h1>
                 <div class="card card-border bg-base-100 mt-10" v-for="(item, index) in data.reviews" :key="index"

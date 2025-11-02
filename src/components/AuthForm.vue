@@ -4,6 +4,7 @@ import { ref } from 'vue';
 import customApi from '../utils/api';
 import { RouterLink, useRouter } from 'vue-router';
 import { useAuthStore } from '../store/auth';
+import Loading from './Loading.vue';
 
 
 
@@ -76,8 +77,13 @@ const AuthSubmitHandle = () => {
                 <label class="label">Password</label>
                 <input type="password" v-model="password" class="input w-full" placeholder="Password" />
 
-                <button class="btn btn-neutral mt-4" type="submit">{{ props.isRegister ? "Register" : "Login"
-                    }}</button>
+                <button class="btn btn-neutral mt-4" type="submit">
+                    <span v-if="AuthMutation.status.value === 'pending'">
+                        <Loading /> Loading ...
+                    </span>
+                    <span v-else>{{ props.isRegister ? "Register" : "Login"
+                    }}</span>
+                </button>
                 <p v-if="props.isRegister" class="text-center">
                     Sudah punya akun silakan
                     <RouterLink :to="{ name: 'login' }">
